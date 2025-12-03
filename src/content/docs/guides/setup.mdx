@@ -1,0 +1,371 @@
+---
+title: Claude Code Setup
+description: Dein Einstieg in AI-gestütztes Coding
+---
+
+import { Steps, Aside, Tabs, TabItem, Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import claudeCodeTerminal from '../../../assets/images/claude-code-terminal.png';
+
+## Was ist Claude Code?
+
+<img src={claudeCodeTerminal.src} alt="Claude Code im Terminal" style="border-radius: 8px; margin: 1rem 0;" />
+
+Bevor wir mit der Installation starten, lass uns kurz verstehen, was wir hier eigentlich installieren.
+
+**Claude Code** ist ein Kommandozeilen-Tool (CLI), das Claude - Anthropics KI-Assistent - direkt in dein Terminal bringt. Statt Code-Schnipsel zwischen Browser und Editor hin und her zu kopieren, kann Claude Code:
+
+- **Direkt auf deine Dateien zugreifen** - Es liest und versteht deinen Code im Kontext
+- **Änderungen vorschlagen und umsetzen** - Mit deiner Erlaubnis schreibt es Code für dich
+- **Komplexe Aufgaben planen** - Im "Plan Mode" analysiert es erst, bevor es handelt
+
+<Aside type="tip" title="Warum CLI statt Chat?">
+Im Browser-Chat musst du Code kopieren, einfügen, erklären, wo er hingehört. Claude Code sieht dein Projekt direkt - wie ein Kollege, der neben dir sitzt und auf deinen Bildschirm schaut.
+</Aside>
+
+---
+
+## Was du brauchst
+
+<CardGrid>
+  <Card title="Ein Terminal" icon="laptop">
+    Das ist das Programm, in dem du Befehle eingibst. Jeder Computer hat eins:
+
+    - **Mac**: "Terminal" (vorinstalliert)
+    - **Windows**: "PowerShell" (vorinstalliert)
+    - **VS Code**: Hat ein eingebautes Terminal
+  </Card>
+  <Card title="NMT AI Gateway Zugang" icon="star">
+    Wir nutzen das **firmeninterne AI Gateway** - keinen persönlichen Claude.ai Account.
+
+    Das Setup dauert ca. 3 Minuten!
+  </Card>
+</CardGrid>
+
+---
+
+## Schritt 1: NMT AI Gateway Zugang holen
+
+Bevor wir Claude Code installieren, brauchst du Zugang zum AI Gateway. Das ist unser firmeninterner Zugang zu Claude und anderen KI-Tools.
+
+<Steps>
+
+1. **Registrierungsseite öffnen**
+
+   Geh auf: **[NMT AI Gateway Registration](https://tools.ai.tech.as-nmt.de/tools?tool=NMT%2520AI%2520Gateway&tab=getAccess)**
+
+2. **Für Claude registrieren**
+
+   Folge den Anweisungen auf der Seite. Du bekommst einen **Auth Token** - eine lange Zeichenkette, die wie ein Passwort funktioniert.
+
+3. **Auth Token sicher aufbewahren**
+
+   Kopiere den Token und speichere ihn irgendwo sicher (z.B. in deinem Passwort-Manager). Du brauchst ihn in **Schritt 3** für die Konfiguration.
+
+</Steps>
+
+<Aside type="caution" title="Wichtig: Netzwerk-Zugang">
+Das AI Gateway funktioniert **nur** im Axel Springer Netzwerk - entweder im Büro oder über **VPN**!
+</Aside>
+
+<Aside type="note" title="Gut zu wissen">
+- **Limit**: $50 pro Tag pro Person - mehr als genug für normales Arbeiten
+- **Übersicht aller Tools**: [tools.ai.tech.as-nmt.de/tools](https://tools.ai.tech.as-nmt.de/tools)
+</Aside>
+
+---
+
+## Schritt 2: Claude Code installieren
+
+Die Installation unterscheidet sich je nach Betriebssystem. Wähle deins:
+
+<Tabs>
+  <TabItem label="Mac / Linux">
+    ### Zwei Installationswege
+
+    Du kannst zwischen **Homebrew** (empfohlen für Mac) oder dem **Installer-Script** wählen.
+
+    <Steps>
+
+    1. **Terminal öffnen**
+
+       Auf dem Mac: Drücke `Cmd + Leertaste`, tippe "Terminal" und drücke Enter.
+
+       Du siehst jetzt ein Fenster mit einer Eingabezeile - das ist dein Terminal.
+
+    2. **Installation durchführen**
+
+       **Option A: Homebrew (empfohlen für Mac)**
+
+       Falls du Homebrew bereits installiert hast:
+
+       ```bash
+       brew install --cask claude-code
+       ```
+
+       **Was ist Homebrew?** Ein Paketmanager für Mac, der Software-Installation vereinfacht. Falls du es nicht hast, nutze Option B.
+
+       ---
+
+       **Option B: Installer-Script**
+
+       ```bash
+       curl -fsSL https://claude.ai/install.sh | bash
+       ```
+
+       **Was passiert hier?**
+       - `curl` lädt das Installer-Script von claude.ai herunter
+       - `| bash` führt es direkt aus
+       - Das Script installiert Claude Code und richtet die Pfade ein
+
+       <Aside type="caution">
+       Du wirst möglicherweise nach deinem Mac-Passwort gefragt. Das ist normal - der Installer braucht Berechtigungen, um Claude Code systemweit zu installieren.
+       </Aside>
+
+    3. **Terminal neu starten**
+
+       Schließe das Terminal-Fenster und öffne ein neues. Das ist wichtig, damit dein System den neuen `claude` Befehl erkennt.
+
+       *Alternativ:* Führe `source ~/.zshrc` aus (oder `source ~/.bashrc` wenn du Bash nutzt).
+
+    4. **Prüfen, ob es funktioniert hat**
+
+       ```bash
+       claude --version
+       ```
+
+       Wenn du eine Versionsnummer siehst (z.B. `2.0.57`), hat die Installation geklappt!
+
+    </Steps>
+  </TabItem>
+
+  <TabItem label="Windows">
+    ### Installation über PowerShell
+
+    <Steps>
+
+    1. **PowerShell öffnen**
+
+       Drücke die Windows-Taste, tippe "PowerShell" und öffne es.
+
+       <Aside type="tip">
+       Falls du WSL (Windows Subsystem for Linux) nutzt, kannst du auch die Mac/Linux-Anleitung verwenden.
+       </Aside>
+
+    2. **Claude Code installieren**
+
+       Kopiere diesen Befehl in PowerShell:
+
+       ```powershell
+       irm https://claude.ai/install.ps1 | iex
+       ```
+
+       **Was passiert hier?**
+       - `irm` = Invoke-RestMethod (lädt das Script herunter)
+       - `| iex` = Invoke-Expression (führt es aus)
+       - Das Script installiert Claude Code automatisch
+
+       <Aside type="note" title="Alternative: Eingabeaufforderung (CMD)">
+       Falls du lieber CMD nutzt:
+       ```cmd
+       curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del install.cmd
+       ```
+       </Aside>
+
+    3. **PowerShell neu starten**
+
+       Schließe PowerShell und öffne es erneut, damit der neue `claude` Befehl erkannt wird.
+
+    4. **Installation prüfen**
+
+       ```powershell
+       claude --version
+       ```
+
+       Wenn du eine Versionsnummer siehst (z.B. `2.0.57`), hat die Installation geklappt!
+
+    </Steps>
+  </TabItem>
+
+  <TabItem label="VS Code Extension">
+    ### Alternative: Die grafische Variante
+
+    Wenn du lieber in VS Code bleibst und das Terminal meiden möchtest, gibt es auch eine Extension (aktuell in Beta).
+
+    <Steps>
+
+    1. **VS Code öffnen**
+
+    2. **Extensions-Ansicht öffnen**
+
+       Drücke `Ctrl+Shift+X` (Windows) oder `Cmd+Shift+X` (Mac)
+
+    3. **Nach "Claude" suchen**
+
+       Im Suchfeld "Claude" eingeben und die offizielle Extension von Anthropic installieren.
+
+    </Steps>
+
+    <Aside type="note">
+    Im Workshop nutzen wir primär die CLI-Version, da sie mehr Möglichkeiten bietet. Die Extension ist aber ein guter Einstieg, wenn du dich mit dem Terminal (noch) nicht wohlfühlst.
+    </Aside>
+  </TabItem>
+</Tabs>
+
+---
+
+## Schritt 3: Mit dem AI Gateway verbinden
+
+<Aside type="note" title="Warum dieser Schritt?">
+Über das **NMT AI Gateway** bekommst du Zugang zu Claude Code ohne eigenes Abo - die Firma stellt dir **$50 pro Tag** zur Verfügung. Die Umgebungsvariablen leiten Claude Code zu unserem Gateway um.
+</Aside>
+
+Jetzt verbinden wir Claude Code mit dem NMT AI Gateway. Dafür brauchst du den Auth Token aus Schritt 1.
+
+<Steps>
+
+1. **Umgebungsvariablen setzen**
+
+   Du brauchst **drei** Variablen: Token, URL und Model.
+
+   <Tabs>
+     <TabItem label="Mac / Linux">
+       Öffne dein Terminal und führe aus:
+
+       ```bash
+       export ANTHROPIC_AUTH_TOKEN='dein-token-hier'
+       export ANTHROPIC_BASE_URL='https://litellm.dev.tech.as-nmt.de/'
+       export ANTHROPIC_MODEL='eu.anthropic.claude-sonnet-4-5-20250929-v1:0'
+       ```
+
+       **Was bedeuten diese Variablen?**
+       - `ANTHROPIC_AUTH_TOKEN` - Dein persönlicher Zugangsschlüssel
+       - `ANTHROPIC_BASE_URL` - Die Adresse des NMT AI Gateway
+       - `ANTHROPIC_MODEL` - Welches Claude-Modell verwendet wird (Sonnet 4.5)
+
+       **Für permanente Einrichtung** füge diese Zeilen zu deiner `~/.zshrc` oder `~/.bashrc` hinzu:
+
+       ```bash
+       # NMT AI Gateway Konfiguration
+       export ANTHROPIC_AUTH_TOKEN='dein-token-hier'
+       export ANTHROPIC_BASE_URL='https://litellm.dev.tech.as-nmt.de/'
+       export ANTHROPIC_MODEL='eu.anthropic.claude-sonnet-4-5-20250929-v1:0'
+       ```
+
+       Dann aktiviere die Änderungen:
+       ```bash
+       source ~/.zshrc
+       ```
+     </TabItem>
+
+     <TabItem label="Windows">
+       In PowerShell:
+
+       ```powershell
+       $env:ANTHROPIC_AUTH_TOKEN = 'dein-token-hier'
+       $env:ANTHROPIC_BASE_URL = 'https://litellm.dev.tech.as-nmt.de/'
+       $env:ANTHROPIC_MODEL = 'eu.anthropic.claude-sonnet-4-5-20250929-v1:0'
+       ```
+
+       **Für permanente Einrichtung**: Suche nach "Umgebungsvariablen" in der Windows-Suche und füge alle drei Variablen als Benutzervariablen hinzu.
+     </TabItem>
+   </Tabs>
+
+   <Aside type="caution" title="Wichtig: Token geheim halten!">
+   Teile deinen Auth Token niemals öffentlich (z.B. in Git). Er ist wie ein Passwort.
+   </Aside>
+
+2. **Verbindung testen**
+
+   Starte Claude Code:
+
+   ```bash
+   claude
+   ```
+
+   Wenn alles richtig konfiguriert ist, sollte Claude Code starten und sich mit dem NMT AI Gateway verbinden.
+
+</Steps>
+
+---
+
+## Schritt 4: Erster Test
+
+Lass uns prüfen, ob wirklich alles funktioniert.
+
+<Steps>
+
+1. **Navigiere zu einem Ordner**
+
+   Öffne einen beliebigen Ordner - das kann ein Projekt sein, muss aber nicht:
+
+   ```bash
+   cd pfad/zu/einem/ordner
+   ```
+
+2. **Claude Code starten**
+
+   ```bash
+   claude
+   ```
+
+3. **Eine Test-Frage stellen**
+
+   Tippe im Claude-Prompt:
+
+   ```
+   Was siehst du in diesem Ordner? Beschreibe kurz die Dateien.
+   ```
+
+4. **Die Antwort beobachten**
+
+   Claude sollte dir jetzt beschreiben, welche Dateien es gefunden hat und was sie vermutlich tun.
+
+   **Das ist der Kern von Claude Code:** Es versteht den Kontext deines Projekts, ohne dass du alles erklären musst.
+
+5. **Beenden**
+
+   Tippe `/exit` oder drücke `Ctrl+C` um Claude Code zu beenden.
+
+</Steps>
+
+---
+
+## Probleme?
+
+Falls etwas nicht klappt, melde dich einfach bei mir: **[oladayo.fagbemi@axelspringer.com](mailto:oladayo.fagbemi@axelspringer.com)**
+
+Wir kriegen das gemeinsam hin!
+
+---
+
+## Checkliste vor dem Workshop
+
+- [ ] **NMT AI Gateway Zugang** - Du hast einen Auth Token
+- [ ] **`claude --version` zeigt eine Versionsnummer** - Installation erfolgreich
+- [ ] **Umgebungsvariablen sind gesetzt** - `echo $ANTHROPIC_AUTH_TOKEN` zeigt deinen Token
+- [ ] **Test-Frage wurde beantwortet** - Claude antwortet auf deine Fragen
+
+<Aside type="note" title="Probleme? Kein Stress!">
+Falls etwas nicht klappt, schreib mir vor dem Workshop. Wir kriegen das hin! Im Notfall machen wir das Setup gemeinsam in den ersten Minuten der Session.
+</Aside>
+
+---
+
+## Weiterführende Links
+
+<CardGrid>
+  <LinkCard
+    title="NMT AI Gateway"
+    description="Alle verfügbaren KI-Tools im Überblick"
+    href="https://tools.ai.tech.as-nmt.de/tools"
+  />
+  <LinkCard
+    title="Claude Code Docs"
+    description="Offizielle Dokumentation"
+    href="https://code.claude.com/docs"
+  />
+</CardGrid>
+
+---
+
+**Bis Freitag!** Im Workshop schauen wir uns dann an, wie du Claude Code effektiv für echte Coding-Aufgaben einsetzt.

@@ -1,0 +1,77 @@
+---
+interface Props {
+	title: string;
+	count: number;
+	icon: string;
+	session?: string;
+}
+
+const { title, count, icon, session } = Astro.props;
+---
+
+<div class="expectation-card">
+	<div class="card-header">
+		<span class="icon">{icon}</span>
+		<span class="count">{count}x genannt</span>
+	</div>
+	<h3 class="card-title">{title}</h3>
+	{session && (
+		<div class="session-link">
+			Behandelt in: <a href={`/workshop/${session}/`}>{session}</a>
+		</div>
+	)}
+</div>
+
+<style>
+	.expectation-card {
+		background: var(--sl-color-gray-6);
+		border: 1px solid var(--sl-color-gray-5);
+		border-radius: 0.75rem;
+		padding: 1.25rem;
+		transition: border-color 0.2s;
+	}
+
+	.expectation-card:hover {
+		border-color: var(--sl-color-accent);
+	}
+
+	.card-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 0.5rem;
+	}
+
+	.icon {
+		font-size: 1.5rem;
+	}
+
+	.count {
+		font-size: 0.75rem;
+		color: var(--sl-color-gray-3);
+		background: var(--sl-color-gray-5);
+		padding: 0.25rem 0.5rem;
+		border-radius: 1rem;
+	}
+
+	.card-title {
+		margin: 0;
+		font-size: 1rem;
+		font-weight: 600;
+	}
+
+	.session-link {
+		margin-top: 0.75rem;
+		font-size: 0.85rem;
+		color: var(--sl-color-gray-3);
+	}
+
+	.session-link a {
+		color: var(--sl-color-accent);
+		text-decoration: none;
+	}
+
+	.session-link a:hover {
+		text-decoration: underline;
+	}
+</style>

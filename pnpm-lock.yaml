@@ -14,9 +14,18 @@ importers:
       astro:
         specifier: ^5.6.1
         version: 5.16.3(@types/node@24.10.1)(rollup@4.53.3)(typescript@5.9.3)
+      marked:
+        specifier: ^17.0.1
+        version: 17.0.1
+      reveal.js:
+        specifier: ^5.2.1
+        version: 5.2.1
       sharp:
         specifier: ^0.34.2
         version: 0.34.5
+      starlight-theme-next:
+        specifier: ^0.3.3
+        version: 0.3.3(@astrojs/starlight@0.37.0(astro@5.16.3(@types/node@24.10.1)(rollup@4.53.3)(typescript@5.9.3)))
 
 packages:
 
@@ -1117,6 +1126,11 @@ packages:
   markdown-table@3.0.4:
     resolution: {integrity: sha512-wiYz4+JrLyb/DqW2hkFJxP7Vd7JuTDm77fvbM8VfEQdmSMqcImWeeRbHwZjBjIFki/VaMK2BhFi7oUUZeM5bqw==}
 
+  marked@17.0.1:
+    resolution: {integrity: sha512-boeBdiS0ghpWcSwoNm/jJBwdpFaMnZWRzjA6SkUMYb40SVaN1x7mmfGKp0jvexGcx+7y2La5zRZsYFZI6Qpypg==}
+    engines: {node: '>= 20'}
+    hasBin: true
+
   mdast-util-definitions@6.0.0:
     resolution: {integrity: sha512-scTllyX6pnYNZH/AIp/0ePz6s4cZtARxImwoPJ7kS42n+MnVsI4XbnG6d4ibehRIldYMWM2LD7ImQblVhUejVQ==}
 
@@ -1490,6 +1504,10 @@ packages:
   retext@9.0.0:
     resolution: {integrity: sha512-sbMDcpHCNjvlheSgMfEcVrZko3cDzdbe1x/e7G66dFp0Ff7Mldvi2uv6JkJQzdRcvLYE8CA8Oe8siQx8ZOgTcA==}
 
+  reveal.js@5.2.1:
+    resolution: {integrity: sha512-r7//6mIM5p34hFiDMvYfXgyjXqGRta+/psd9YtytsgRlrpRzFv4RbH76TXd2qD+7ZPZEbpBDhdRhJaFgfQ7zNQ==}
+    engines: {node: '>=18.0.0'}
+
   rollup@4.53.3:
     resolution: {integrity: sha512-w8GmOxZfBmKknvdXU1sdM9NHcoQejwF/4mNgj2JuEEdRaHwwF12K7e9eXn1nLZ07ad+du76mkVsyeb2rKGllsA==}
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
@@ -1532,6 +1550,12 @@ packages:
 
   space-separated-tokens@2.0.2:
     resolution: {integrity: sha512-PEGlAwrG8yXGXRjW32fGbg66JAlOAwbObuqVoJpv/mRgoWDQfgH1wDPvtzWyUSNAXBGSk8h755YDbbcEy3SH2Q==}
+
+  starlight-theme-next@0.3.3:
+    resolution: {integrity: sha512-V8+tSvbSZKopt1nG5vEnoFiEEc6xqs11Ombbd0awUfm+OzU4+mZOK0VtuZxBTWZduwX3MbmB8j7f+o0GyH22Xw==}
+    engines: {node: ^18.17.1 || ^20.3.0 || >=21.0.0}
+    peerDependencies:
+      '@astrojs/starlight': '>=0.34'
 
   stream-replace-string@2.0.0:
     resolution: {integrity: sha512-TlnjJ1C0QrmxRNrON00JvaFFlNh5TTG00APw23j74ET7gkQpTASi6/L2fuiav8pzK715HXtUeClpBTw2NPSn6w==}
@@ -3075,6 +3099,8 @@ snapshots:
 
   markdown-table@3.0.4: {}
 
+  marked@17.0.1: {}
+
   mdast-util-definitions@6.0.0:
     dependencies:
       '@types/mdast': 4.0.4
@@ -3825,6 +3851,8 @@ snapshots:
       retext-stringify: 4.0.0
       unified: 11.0.5
 
+  reveal.js@5.2.1: {}
+
   rollup@4.53.3:
     dependencies:
       '@types/estree': 1.0.8
@@ -3915,6 +3943,10 @@ snapshots:
   source-map@0.7.6: {}
 
   space-separated-tokens@2.0.2: {}
+
+  starlight-theme-next@0.3.3(@astrojs/starlight@0.37.0(astro@5.16.3(@types/node@24.10.1)(rollup@4.53.3)(typescript@5.9.3))):
+    dependencies:
+      '@astrojs/starlight': 0.37.0(astro@5.16.3(@types/node@24.10.1)(rollup@4.53.3)(typescript@5.9.3))
 
   stream-replace-string@2.0.0: {}
 
