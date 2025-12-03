@@ -12,9 +12,9 @@ build:
 preview:
 	pnpm preview
 
-# Deploy to Cloudflare Pages
+# Deploy to Cloudflare Workers
 deploy: build
-	pnpm exec wrangler pages deploy ./dist
+	pnpm dlx wrangler@latest deploy
 
 # Clean build artifacts
 clean:
@@ -34,6 +34,6 @@ help:
 	@echo "  make dev      - Start development server"
 	@echo "  make build    - Build for production"
 	@echo "  make preview  - Preview production build"
-	@echo "  make deploy   - Deploy to Cloudflare Pages"
+	@echo "  make deploy   - Deploy to Cloudflare Workers"
 	@echo "  make clean    - Remove build artifacts"
 	@echo "  make check    - Run type checking"
