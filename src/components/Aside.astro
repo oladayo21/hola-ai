@@ -1,0 +1,84 @@
+---
+interface Props {
+  type?: 'note' | 'tip' | 'caution' | 'danger';
+  title?: string;
+}
+
+const { type = 'note', title } = Astro.props;
+
+const icons = {
+  note: 'ℹ️',
+  tip: '💡',
+  caution: '⚠️',
+  danger: '🚨'
+};
+
+const titles = {
+  note: 'Hinweis',
+  tip: 'Tipp',
+  caution: 'Achtung',
+  danger: 'Wichtig'
+};
+---
+
+<aside class={`aside aside-${type}`}>
+  {(title || titles[type]) && (
+    <p class="aside-title">
+      <span class="aside-icon">{icons[type]}</span>
+      {title || titles[type]}
+    </p>
+  )}
+  <div class="aside-content">
+    <slot />
+  </div>
+</aside>
+
+<style>
+  .aside {
+    padding: 1rem 1.25rem;
+    border-radius: 6px;
+    margin: 1.5rem 0;
+    border-left: 3px solid;
+  }
+
+  .aside-note {
+    background: rgba(59, 130, 246, 0.1);
+    border-left-color: #3b82f6;
+  }
+
+  .aside-tip {
+    background: rgba(34, 197, 94, 0.1);
+    border-left-color: #22c55e;
+  }
+
+  .aside-caution {
+    background: rgba(234, 179, 8, 0.1);
+    border-left-color: #eab308;
+  }
+
+  .aside-danger {
+    background: rgba(239, 68, 68, 0.1);
+    border-left-color: #ef4444;
+  }
+
+  .aside-title {
+    font-weight: 600;
+    color: #e5e5e5;
+    margin: 0 0 0.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .aside-icon {
+    font-size: 1rem;
+  }
+
+  .aside-content {
+    color: #a3a3a3;
+  }
+
+  .aside-content > *:last-child {
+    margin-bottom: 0;
+  }
+</style>

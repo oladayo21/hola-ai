@@ -1,5 +1,10 @@
 ---
 import Base from '../../layouts/Base.astro';
+import Steps from '../../components/Steps.astro';
+import Tabs from '../../components/Tabs.astro';
+import TabItem from '../../components/TabItem.astro';
+import Aside from '../../components/Aside.astro';
+import Code from '../../components/Code.astro';
 ---
 
 <Base title="Claude Code Setup" description="Dein Einstieg in AI-gestütztes Coding">
@@ -23,88 +28,120 @@ import Base from '../../layouts/Base.astro';
           <li><strong>Komplexe Aufgaben planen</strong> - Im "Plan Mode" analysiert es erst</li>
         </ul>
 
+        <Aside type="tip" title="Warum CLI statt Chat?">
+          <p>Im Browser-Chat musst du Code kopieren, einfügen, erklären wo er hingehört. Claude Code sieht dein Projekt direkt - wie ein Kollege, der neben dir sitzt.</p>
+        </Aside>
+
         <hr />
 
         <h2>Schritt 1: NMT AI Gateway Zugang</h2>
         <p>Wir nutzen das <strong>firmeninterne AI Gateway</strong> - kein eigenes Claude.ai Abo nötig.</p>
-        <ol>
-          <li>
-            <strong>Registrierungsseite öffnen:</strong><br />
-            <a href="https://tools.ai.tech.as-nmt.de/tools?tool=NMT%2520AI%2520Gateway&tab=getAccess" target="_blank" rel="noopener">
-              NMT AI Gateway Registration
-            </a>
-          </li>
-          <li><strong>Für Claude registrieren</strong> - Du bekommst einen <strong>Auth Token</strong></li>
-          <li><strong>Token sicher aufbewahren</strong> - Du brauchst ihn in Schritt 3</li>
-        </ol>
 
-        <div class="callout warning">
-          <strong>Wichtig:</strong> Das AI Gateway funktioniert nur im Axel Springer Netzwerk (Büro oder VPN).
-        </div>
+        <Steps>
+          <ol>
+            <li>
+              <strong>Registrierungsseite öffnen</strong>
+              <p>Geh auf: <a href="https://tools.ai.tech.as-nmt.de/tools?tool=NMT%2520AI%2520Gateway&tab=getAccess" target="_blank" rel="noopener">NMT AI Gateway Registration</a></p>
+            </li>
+            <li>
+              <strong>Für Claude registrieren</strong>
+              <p>Folge den Anweisungen. Du bekommst einen <strong>Auth Token</strong> - eine lange Zeichenkette wie ein Passwort.</p>
+            </li>
+            <li>
+              <strong>Token sicher aufbewahren</strong>
+              <p>Kopiere den Token und speichere ihn sicher (z.B. Passwort-Manager). Du brauchst ihn in Schritt 3.</p>
+            </li>
+          </ol>
+        </Steps>
+
+        <Aside type="caution" title="Wichtig: Netzwerk">
+          <p>Das AI Gateway funktioniert <strong>nur</strong> im Axel Springer Netzwerk (Büro oder VPN)!</p>
+        </Aside>
 
         <hr />
 
         <h2>Schritt 2: Claude Code installieren</h2>
 
-        <div class="tabs">
-          <h3>Mac / Linux</h3>
-          <p><strong>Option A: Homebrew</strong> (empfohlen)</p>
-          <pre><code>brew install --cask claude-code</code></pre>
+        <Tabs items={["Mac / Linux", "Windows"]}>
+          <TabItem label="Mac / Linux" active>
+            <p><strong>Option A: Homebrew</strong> (empfohlen)</p>
+            <Code code="brew install --cask claude-code" />
 
-          <p><strong>Option B: Installer-Script</strong></p>
-          <pre><code>curl -fsSL https://claude.ai/install.sh | bash</code></pre>
+            <p><strong>Option B: Installer-Script</strong></p>
+            <Code code="curl -fsSL https://claude.ai/install.sh | bash" />
 
-          <p>Danach Terminal neu starten und prüfen:</p>
-          <pre><code>claude --version</code></pre>
-        </div>
+            <p>Danach Terminal neu starten und prüfen:</p>
+            <Code code="claude --version" />
+          </TabItem>
 
-        <div class="tabs">
-          <h3>Windows</h3>
-          <p>In PowerShell:</p>
-          <pre><code>irm https://claude.ai/install.ps1 | iex</code></pre>
+          <TabItem label="Windows">
+            <p>In PowerShell:</p>
+            <Code code="irm https://claude.ai/install.ps1 | iex" lang="powershell" />
 
-          <p>Danach PowerShell neu starten und prüfen:</p>
-          <pre><code>claude --version</code></pre>
-        </div>
+            <p>Danach PowerShell neu starten und prüfen:</p>
+            <Code code="claude --version" lang="powershell" />
+          </TabItem>
+        </Tabs>
 
         <hr />
 
         <h2>Schritt 3: Mit dem AI Gateway verbinden</h2>
         <p>Setze diese Umgebungsvariablen mit deinem Token aus Schritt 1:</p>
 
-        <div class="tabs">
-          <h3>Mac / Linux</h3>
-          <p>Füge zu deiner <code>~/.zshrc</code> oder <code>~/.bashrc</code> hinzu:</p>
-          <pre><code># NMT AI Gateway Konfiguration
+        <Tabs items={["Mac / Linux", "Windows"]}>
+          <TabItem label="Mac / Linux" active>
+            <p>Füge zu deiner <code>~/.zshrc</code> oder <code>~/.bashrc</code> hinzu:</p>
+            <Code
+              code={`# NMT AI Gateway Konfiguration
 export ANTHROPIC_AUTH_TOKEN='dein-token-hier'
 export ANTHROPIC_BASE_URL='https://litellm.dev.tech.as-nmt.de/'
-export ANTHROPIC_MODEL='eu.anthropic.claude-sonnet-4-5-20250929-v1:0'</code></pre>
-          <p>Dann aktivieren:</p>
-          <pre><code>source ~/.zshrc</code></pre>
-        </div>
+export ANTHROPIC_MODEL='eu.anthropic.claude-sonnet-4-5-20250929-v1:0'`}
+              title="~/.zshrc"
+            />
+            <p>Dann aktivieren:</p>
+            <Code code="source ~/.zshrc" />
+          </TabItem>
 
-        <div class="tabs">
-          <h3>Windows</h3>
-          <p>In PowerShell:</p>
-          <pre><code>$env:ANTHROPIC_AUTH_TOKEN = 'dein-token-hier'
+          <TabItem label="Windows">
+            <p>In PowerShell:</p>
+            <Code
+              code={`$env:ANTHROPIC_AUTH_TOKEN = 'dein-token-hier'
 $env:ANTHROPIC_BASE_URL = 'https://litellm.dev.tech.as-nmt.de/'
-$env:ANTHROPIC_MODEL = 'eu.anthropic.claude-sonnet-4-5-20250929-v1:0'</code></pre>
-          <p>Für permanente Einrichtung: Suche "Umgebungsvariablen" in Windows.</p>
-        </div>
+$env:ANTHROPIC_MODEL = 'eu.anthropic.claude-sonnet-4-5-20250929-v1:0'`}
+              lang="powershell"
+            />
+            <p>Für permanente Einrichtung: Suche "Umgebungsvariablen" in Windows.</p>
+          </TabItem>
+        </Tabs>
 
-        <div class="callout warning">
-          <strong>Token geheim halten!</strong> Niemals in Git oder öffentlich teilen.
-        </div>
+        <Aside type="caution">
+          <p><strong>Token geheim halten!</strong> Niemals in Git oder öffentlich teilen.</p>
+        </Aside>
 
         <hr />
 
         <h2>Schritt 4: Testen</h2>
-        <ol>
-          <li>Navigiere zu einem Ordner: <code>cd pfad/zu/projekt</code></li>
-          <li>Starte Claude Code: <code>claude</code></li>
-          <li>Stelle eine Test-Frage: <em>"Was siehst du in diesem Ordner?"</em></li>
-          <li>Beenden: <code>/exit</code> oder <code>Ctrl+C</code></li>
-        </ol>
+
+        <Steps>
+          <ol>
+            <li>
+              <strong>Navigiere zu einem Ordner</strong>
+              <Code code="cd pfad/zu/projekt" />
+            </li>
+            <li>
+              <strong>Starte Claude Code</strong>
+              <Code code="claude" />
+            </li>
+            <li>
+              <strong>Stelle eine Test-Frage</strong>
+              <p><em>"Was siehst du in diesem Ordner?"</em></p>
+            </li>
+            <li>
+              <strong>Beenden</strong>
+              <p>Tippe <code>/exit</code> oder drücke <code>Ctrl+C</code></p>
+            </li>
+          </ol>
+        </Steps>
 
         <hr />
 
@@ -122,7 +159,10 @@ $env:ANTHROPIC_MODEL = 'eu.anthropic.claude-sonnet-4-5-20250929-v1:0'</code></pr
         <p>
           Melde dich bei: <a href="mailto:oladayo.fagbemi@axelspringer.com">oladayo.fagbemi@axelspringer.com</a>
         </p>
-        <p>Wir kriegen das gemeinsam hin!</p>
+
+        <Aside type="note">
+          <p>Falls etwas nicht klappt, schreib mir vor dem Workshop. Wir kriegen das hin! Im Notfall machen wir das Setup gemeinsam in den ersten Minuten.</p>
+        </Aside>
       </section>
     </div>
   </article>
@@ -176,14 +216,6 @@ $env:ANTHROPIC_MODEL = 'eu.anthropic.claude-sonnet-4-5-20250929-v1:0'</code></pr
     margin-bottom: 1rem;
   }
 
-  .setup-page .content h3 {
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: #a3a3a3;
-    margin-top: 1.5rem;
-    margin-bottom: 0.75rem;
-  }
-
   .setup-page .content p {
     color: #a3a3a3;
     line-height: 1.7;
@@ -217,56 +249,12 @@ $env:ANTHROPIC_MODEL = 'eu.anthropic.claude-sonnet-4-5-20250929-v1:0'</code></pr
     margin: 2.5rem 0;
   }
 
-  .setup-page .content pre {
-    background: #1a1a1a;
-    padding: 1rem;
-    border-radius: 6px;
-    overflow-x: auto;
-    margin: 1rem 0;
-  }
-
   .setup-page .content code {
     font-family: 'Geist Mono', monospace;
     font-size: 0.875rem;
-  }
-
-  .setup-page .content pre code {
-    background: none;
-    padding: 0;
-  }
-
-  .setup-page .content p code {
     background: #1a1a1a;
     padding: 0.2em 0.4em;
     border-radius: 4px;
-  }
-
-  .setup-page .tabs {
-    background: #141414;
-    border: 1px solid #2a2a2a;
-    border-radius: 8px;
-    padding: 1.25rem;
-    margin: 1rem 0;
-  }
-
-  .setup-page .tabs h3 {
-    margin-top: 0;
-    color: #e5e5e5;
-  }
-
-  .setup-page .callout {
-    padding: 1rem 1.25rem;
-    border-radius: 6px;
-    margin: 1.5rem 0;
-  }
-
-  .setup-page .callout.warning {
-    background: rgba(234, 179, 8, 0.1);
-    border-left: 3px solid #eab308;
-  }
-
-  .setup-page .callout strong {
-    color: #e5e5e5;
   }
 
   .setup-page .checklist {
@@ -280,9 +268,10 @@ $env:ANTHROPIC_MODEL = 'eu.anthropic.claude-sonnet-4-5-20250929-v1:0'</code></pr
   }
 
   .setup-page .checklist li::before {
-    content: "☐";
+    content: "[ ]";
     position: absolute;
     left: 0;
     color: #60a5fa;
+    font-family: 'Geist Mono', monospace;
   }
 </style>

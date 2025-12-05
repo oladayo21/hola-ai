@@ -1,0 +1,108 @@
+---
+interface Props {
+  code: string;
+  lang?: string;
+  title?: string;
+}
+
+const { code, lang = 'bash', title } = Astro.props;
+const id = `code-${Math.random().toString(36).slice(2, 9)}`;
+---
+
+<div class="code-block">
+  {title && <div class="code-title">{title}</div>}
+  <div class="code-wrapper">
+    <pre><code class={`language-${lang}`} id={id}>{code}</code></pre>
+    <button class="copy-button" data-code-id={id} aria-label="Code kopieren">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+      </svg>
+      <span class="copy-text">Kopieren</span>
+    </button>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.copy-button').forEach(button => {
+    button.addEventListener('click', async () => {
+      const codeId = button.getAttribute('data-code-id');
+      const code = document.getElementById(codeId)?.textContent || '';
+
+      try {
+        await navigator.clipboard.writeText(code);
+        const textEl = button.querySelector('.copy-text');
+        if (textEl) {
+          textEl.textContent = 'Kopiert!';
+          setTimeout(() => {
+            textEl.textContent = 'Kopieren';
+          }, 2000);
+        }
+      } catch (err) {
+        console.error('Copy failed:', err);
+      }
+    });
+  });
+</script>
+
+<style>
+  .code-block {
+    margin: 1rem 0;
+  }
+
+  .code-title {
+    background: #1f1f1f;
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+    color: #878787;
+    border-radius: 6px 6px 0 0;
+    border: 1px solid #2a2a2a;
+    border-bottom: none;
+    font-family: 'Geist Mono', monospace;
+  }
+
+  .code-wrapper {
+    position: relative;
+  }
+
+  .code-block pre {
+    background: #1a1a1a;
+    padding: 1rem;
+    border-radius: 6px;
+    overflow-x: auto;
+    margin: 0;
+    border: 1px solid #2a2a2a;
+  }
+
+  .code-title + .code-wrapper pre {
+    border-radius: 0 0 6px 6px;
+  }
+
+  .code-block code {
+    font-family: 'Geist Mono', monospace;
+    font-size: 0.875rem;
+    color: #e5e5e5;
+  }
+
+  .copy-button {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.375rem 0.625rem;
+    background: #2a2a2a;
+    border: 1px solid #3a3a3a;
+    border-radius: 4px;
+    color: #878787;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .copy-button:hover {
+    background: #3a3a3a;
+    color: #e5e5e5;
+  }
+</style>

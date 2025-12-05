@@ -1,0 +1,105 @@
+---
+interface Props {
+  items: string[];
+}
+
+const { items } = Astro.props;
+const id = `tabs-${Math.random().toString(36).slice(2, 9)}`;
+---
+
+<div class="tabs-container" data-tabs-id={id}>
+  <div class="tabs-nav" role="tablist">
+    {items.map((item, index) => (
+      <button
+        role="tab"
+        aria-selected={index === 0 ? "true" : "false"}
+        aria-controls={`${id}-panel-${index}`}
+        id={`${id}-tab-${index}`}
+        class={index === 0 ? "active" : ""}
+        data-tab-index={index}
+      >
+        {item}
+      </button>
+    ))}
+  </div>
+  <div class="tabs-panels">
+    <slot />
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.tabs-container').forEach(container => {
+    const buttons = container.querySelectorAll('[role="tab"]');
+    const panels = container.querySelectorAll('[role="tabpanel"]');
+
+    buttons.forEach((button, index) => {
+      button.addEventListener('click', () => {
+        buttons.forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        panels.forEach(p => p.classList.remove('active'));
+
+        button.classList.add('active');
+        button.setAttribute('aria-selected', 'true');
+        panels[index]?.classList.add('active');
+      });
+    });
+  });
+</script>
+
+<style is:global>
+  .tabs-container {
+    margin: 1.5rem 0;
+  }
+
+  .tabs-nav {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid #2a2a2a;
+    margin-bottom: 0;
+  }
+
+  .tabs-nav button {
+    padding: 0.75rem 1.25rem;
+    background: transparent;
+    border: none;
+    color: #878787;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 0.15s, border-color 0.15s;
+  }
+
+  .tabs-nav button:hover {
+    color: #e5e5e5;
+  }
+
+  .tabs-nav button.active {
+    color: #e5e5e5;
+    border-bottom-color: #3b82f6;
+  }
+
+  .tabs-panels [role="tabpanel"] {
+    display: none;
+    background: #141414;
+    border: 1px solid #2a2a2a;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    padding: 1.25rem;
+  }
+
+  .tabs-panels [role="tabpanel"].active {
+    display: block;
+  }
+
+  .tabs-panels [role="tabpanel"] > *:first-child {
+    margin-top: 0;
+  }
+
+  .tabs-panels [role="tabpanel"] > *:last-child {
+    margin-bottom: 0;
+  }
+</style>

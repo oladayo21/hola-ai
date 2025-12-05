@@ -1,0 +1,12 @@
+---
+interface Props {
+  label: string;
+  active?: boolean;
+}
+
+const { label, active = false } = Astro.props;
+---
+
+<div role="tabpanel" class={active ? "active" : ""} aria-label={label}>
+  <slot />
+</div>
