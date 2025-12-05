@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { marked } from 'marked';
+
   interface Prompt {
     id: string;
     title: string;
@@ -17,6 +19,16 @@
     categories: string[];
     categoryLabels: Record<string, string>;
   } = $props();
+
+  // Configure marked for simple inline rendering
+  marked.setOptions({
+    breaks: true,
+    gfm: true,
+  });
+
+  function renderMarkdown(text: string): string {
+    return marked.parse(text) as string;
+  }
 
   let search = $state('');
   let activeCategory = $state<string | null>(null);
@@ -93,7 +105,7 @@
         </div>
 
         <div class="prompt-content">
-          <pre>{prompt.prompt}</pre>
+          <div class="markdown-content">{@html renderMarkdown(prompt.prompt)}</div>
         </div>
 
         <div class="prompt-footer">
@@ -215,18 +227,57 @@
     flex: 1;
     padding: var(--space-4);
     background: var(--color-bg-subtle);
+    max-height: 250px;
+    overflow-y: auto;
   }
 
-  .prompt-content pre {
+  .prompt-content .markdown-content {
     font-size: var(--text-sm);
-    line-height: 1.6;
-    white-space: pre-wrap;
-    word-break: break-word;
-    margin: 0;
-    padding: 0;
+    line-height: 1.7;
+  }
+
+  .prompt-content .markdown-content p {
+    margin: 0 0 0.75em;
+  }
+
+  .prompt-content .markdown-content p:last-child {
+    margin-bottom: 0;
+  }
+
+  .prompt-content .markdown-content ol,
+  .prompt-content .markdown-content ul {
+    margin: 0.5em 0;
+    padding-left: 1.5em;
+  }
+
+  .prompt-content .markdown-content li {
+    margin-bottom: 0.25em;
+  }
+
+  .prompt-content .markdown-content strong {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
+  .prompt-content .markdown-content code {
+    font-family: 'Geist Mono', monospace;
+    font-size: 0.875em;
+    background: var(--color-bg);
+    padding: 0.15em 0.4em;
+    border-radius: 4px;
+  }
+
+  .prompt-content .markdown-content pre {
+    background: var(--color-bg);
+    padding: 0.75em 1em;
+    border-radius: 6px;
+    overflow-x: auto;
+    margin: 0.75em 0;
+  }
+
+  .prompt-content .markdown-content pre code {
     background: none;
-    max-height: 200px;
-    overflow-y: auto;
+    padding: 0;
   }
 
   .prompt-footer {
