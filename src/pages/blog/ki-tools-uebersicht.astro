@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import Aside from '../../components/Aside.astro';
 ---
 
 <Base title="KI-Tools im Überblick" description="Welches Tool für welchen Zweck? Eine praktische Übersicht.">
@@ -10,6 +11,15 @@ import Base from '../../layouts/Base.astro';
         <h1>KI-Tools im Überblick</h1>
         <p class="subtitle">Welches Tool für welchen Zweck?</p>
       </header>
+
+      <Aside type="tip" title="Verifizierte Tools">
+        <p>
+          Für offiziell geprüfte und freigegebene Tools siehe das
+          <a href="https://tools.ai.tech.as-nmt.de/tools" target="_blank" rel="noopener">
+            AI Tools Portal
+          </a>.
+        </p>
+      </Aside>
 
       <section class="tool-category">
         <h2>Allgemein</h2>
@@ -250,5 +260,15 @@ import Base from '../../layouts/Base.astro';
     font-size: 0.875rem;
     color: #525252;
     margin: 0;
+  }
+
+  .aside-content a {
+    color: #22c55e;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .aside-content a:hover {
+    color: #4ade80;
   }
 </style>
