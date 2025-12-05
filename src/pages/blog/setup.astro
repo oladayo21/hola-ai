@@ -4,8 +4,9 @@ import Base from '../../layouts/Base.astro';
 
 <Base title="Claude Code Setup" description="Dein Einstieg in AI-gestütztes Coding">
   <article class="setup-page">
-    <div class="container">
+    <div class="setup-container">
       <header class="page-header">
+        <a href="/blog" class="back-link">&larr; Alle Artikel</a>
         <h1>Claude Code Setup</h1>
         <p class="subtitle">Dein Einstieg in AI-gestütztes Coding</p>
       </header>
@@ -132,29 +133,42 @@ $env:ANTHROPIC_MODEL = 'eu.anthropic.claude-sonnet-4-5-20250929-v1:0'</code></pr
     padding: 4rem 1.5rem;
   }
 
-  .setup-page .container {
-    max-width: 800px;
+  .setup-container {
+    max-width: 900px;
     margin: 0 auto;
   }
 
-  .page-header {
-    margin-bottom: 3rem;
+  .setup-page .page-header {
+    margin-bottom: 4rem;
   }
 
-  .page-header h1 {
+  .setup-page .back-link {
+    display: inline-block;
+    font-size: 0.875rem;
+    color: #878787;
+    margin-bottom: 2rem;
+    text-decoration: none;
+  }
+
+  .setup-page .back-link:hover {
+    color: #e5e5e5;
+  }
+
+  .setup-page .page-header h1 {
     font-size: 2.5rem;
     font-weight: 600;
     color: #e5e5e5;
     margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
   }
 
-  .subtitle {
+  .setup-page .subtitle {
     font-size: 1.125rem;
     color: #878787;
     margin: 0;
   }
 
-  .content h2 {
+  .setup-page .content h2 {
     font-size: 1.5rem;
     font-weight: 600;
     color: #e5e5e5;
@@ -162,7 +176,7 @@ $env:ANTHROPIC_MODEL = 'eu.anthropic.claude-sonnet-4-5-20250929-v1:0'</code></pr
     margin-bottom: 1rem;
   }
 
-  .content h3 {
+  .setup-page .content h3 {
     font-size: 1.125rem;
     font-weight: 600;
     color: #a3a3a3;
@@ -170,39 +184,40 @@ $env:ANTHROPIC_MODEL = 'eu.anthropic.claude-sonnet-4-5-20250929-v1:0'</code></pr
     margin-bottom: 0.75rem;
   }
 
-  .content p {
+  .setup-page .content p {
     color: #a3a3a3;
     line-height: 1.7;
     margin-bottom: 1rem;
   }
 
-  .content ul, .content ol {
+  .setup-page .content ul,
+  .setup-page .content ol {
     color: #a3a3a3;
     padding-left: 1.5rem;
     margin-bottom: 1rem;
   }
 
-  .content li {
+  .setup-page .content li {
     margin-bottom: 0.5rem;
     line-height: 1.6;
   }
 
-  .content a {
+  .setup-page .content a {
     color: #60a5fa;
   }
 
-  .content a:hover {
+  .setup-page .content a:hover {
     color: #93c5fd;
   }
 
-  .content hr {
+  .setup-page .content hr {
     border: none;
     height: 1px;
     background: #2a2a2a;
     margin: 2.5rem 0;
   }
 
-  .content pre {
+  .setup-page .content pre {
     background: #1a1a1a;
     padding: 1rem;
     border-radius: 6px;
@@ -210,23 +225,23 @@ $env:ANTHROPIC_MODEL = 'eu.anthropic.claude-sonnet-4-5-20250929-v1:0'</code></pr
     margin: 1rem 0;
   }
 
-  .content code {
+  .setup-page .content code {
     font-family: 'Geist Mono', monospace;
     font-size: 0.875rem;
   }
 
-  .content pre code {
+  .setup-page .content pre code {
     background: none;
     padding: 0;
   }
 
-  .content p code {
+  .setup-page .content p code {
     background: #1a1a1a;
     padding: 0.2em 0.4em;
     border-radius: 4px;
   }
 
-  .tabs {
+  .setup-page .tabs {
     background: #141414;
     border: 1px solid #2a2a2a;
     border-radius: 8px;
@@ -234,37 +249,37 @@ $env:ANTHROPIC_MODEL = 'eu.anthropic.claude-sonnet-4-5-20250929-v1:0'</code></pr
     margin: 1rem 0;
   }
 
-  .tabs h3 {
+  .setup-page .tabs h3 {
     margin-top: 0;
     color: #e5e5e5;
   }
 
-  .callout {
+  .setup-page .callout {
     padding: 1rem 1.25rem;
     border-radius: 6px;
     margin: 1.5rem 0;
   }
 
-  .callout.warning {
+  .setup-page .callout.warning {
     background: rgba(234, 179, 8, 0.1);
     border-left: 3px solid #eab308;
   }
 
-  .callout strong {
+  .setup-page .callout strong {
     color: #e5e5e5;
   }
 
-  .checklist {
+  .setup-page .checklist {
     list-style: none;
     padding-left: 0;
   }
 
-  .checklist li {
+  .setup-page .checklist li {
     padding-left: 1.75rem;
     position: relative;
   }
 
-  .checklist li::before {
+  .setup-page .checklist li::before {
     content: "☐";
     position: absolute;
     left: 0;
