@@ -1,0 +1,161 @@
+/* Hola AI - Slidev Theme Customization */
+
+/* Import Geist font */
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap');
+
+:root {
+  /* Brand colors - matching hola-ai.dev */
+  --slidev-theme-primary: #3b82f6;
+  --slidev-theme-accent: #60a5fa;
+
+  /* Dark theme backgrounds */
+  --slidev-theme-background: #141414;
+  --slidev-theme-background-secondary: #1a1a1a;
+  --slidev-theme-background-elevated: #1f1f1f;
+
+  /* Text colors */
+  --slidev-theme-text: #e5e5e5;
+  --slidev-theme-text-secondary: #a3a3a3;
+  --slidev-theme-text-muted: #878787;
+
+  /* Code */
+  --slidev-theme-code-background: #0a0a0a;
+}
+
+/* Global styles */
+.slidev-layout {
+  background: var(--slidev-theme-background);
+  color: var(--slidev-theme-text);
+  font-family: 'Geist', ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Geist', ui-sans-serif, system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  color: var(--slidev-theme-text);
+  font-size: 3rem;
+  font-weight: 500;
+}
+
+h2 {
+  color: var(--slidev-theme-text-secondary);
+  font-size: 1.75rem;
+}
+
+/* Code blocks */
+pre, code {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+}
+
+.slidev-code {
+  background: var(--slidev-theme-code-background) !important;
+  border-radius: 6px;
+}
+
+/* Links */
+a {
+  color: var(--slidev-theme-primary);
+}
+
+a:hover {
+  color: var(--slidev-theme-accent);
+}
+
+/* Tables */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th {
+  background: var(--slidev-theme-background-secondary) !important;
+  color: var(--slidev-theme-text) !important;
+  font-weight: 600 !important;
+  text-align: center !important;
+}
+
+td {
+  text-align: center !important;
+}
+
+td, th {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.75rem 1rem;
+}
+
+tr:nth-child(even) {
+  background: var(--slidev-theme-background-secondary);
+}
+
+/* Lists */
+li {
+  color: var(--slidev-theme-text-secondary);
+}
+
+li::marker {
+  color: var(--slidev-theme-primary);
+}
+
+/* Blockquotes */
+blockquote {
+  border-left: 4px solid var(--slidev-theme-primary);
+  background: var(--slidev-theme-background-secondary);
+  padding: 1rem 1.5rem;
+  margin: 1rem 0;
+}
+
+/* Cover slide */
+.slidev-layout.cover {
+  background: linear-gradient(135deg, #141414 0%, #1a1a1a 100%);
+}
+
+.slidev-layout.cover h1 {
+  font-size: 4rem;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  background: linear-gradient(180deg, #e5e5e5 0%, #a3a3a3 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Section slides */
+.slidev-layout.section {
+  background: var(--slidev-theme-background);
+}
+
+.slidev-layout.section h1 {
+  color: var(--slidev-theme-primary);
+}
+
+/* V-clicks animation */
+.slidev-vclick-target {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.slidev-vclick-hidden {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+/* Slide number */
+.slidev-page-number {
+  color: var(--slidev-theme-text-muted);
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.75rem;
+}
+
+/* Progress bar */
+.slidev-progress {
+  background: var(--slidev-theme-primary);
+}
+
+/* Navigation */
+.slidev-nav {
+  background: var(--slidev-theme-background-secondary);
+}

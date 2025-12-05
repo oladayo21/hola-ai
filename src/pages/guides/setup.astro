@@ -1,0 +1,273 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+
+<Base title="Claude Code Setup" description="Dein Einstieg in AI-gestütztes Coding">
+  <article class="setup-page">
+    <div class="container">
+      <header class="page-header">
+        <h1>Claude Code Setup</h1>
+        <p class="subtitle">Dein Einstieg in AI-gestütztes Coding</p>
+      </header>
+
+      <section class="content">
+        <h2>Was ist Claude Code?</h2>
+        <p>
+          <strong>Claude Code</strong> ist ein Kommandozeilen-Tool (CLI), das Claude direkt in dein Terminal bringt.
+          Statt Code zwischen Browser und Editor zu kopieren, kann Claude Code:
+        </p>
+        <ul>
+          <li><strong>Direkt auf deine Dateien zugreifen</strong> - Es liest und versteht deinen Code</li>
+          <li><strong>Änderungen vorschlagen und umsetzen</strong> - Mit deiner Erlaubnis</li>
+          <li><strong>Komplexe Aufgaben planen</strong> - Im "Plan Mode" analysiert es erst</li>
+        </ul>
+
+        <hr />
+
+        <h2>Schritt 1: NMT AI Gateway Zugang</h2>
+        <p>Wir nutzen das <strong>firmeninterne AI Gateway</strong> - kein eigenes Claude.ai Abo nötig.</p>
+        <ol>
+          <li>
+            <strong>Registrierungsseite öffnen:</strong><br />
+            <a href="https://tools.ai.tech.as-nmt.de/tools?tool=NMT%2520AI%2520Gateway&tab=getAccess" target="_blank" rel="noopener">
+              NMT AI Gateway Registration
+            </a>
+          </li>
+          <li><strong>Für Claude registrieren</strong> - Du bekommst einen <strong>Auth Token</strong></li>
+          <li><strong>Token sicher aufbewahren</strong> - Du brauchst ihn in Schritt 3</li>
+        </ol>
+
+        <div class="callout warning">
+          <strong>Wichtig:</strong> Das AI Gateway funktioniert nur im Axel Springer Netzwerk (Büro oder VPN).
+        </div>
+
+        <hr />
+
+        <h2>Schritt 2: Claude Code installieren</h2>
+
+        <div class="tabs">
+          <h3>Mac / Linux</h3>
+          <p><strong>Option A: Homebrew</strong> (empfohlen)</p>
+          <pre><code>brew install --cask claude-code</code></pre>
+
+          <p><strong>Option B: Installer-Script</strong></p>
+          <pre><code>curl -fsSL https://claude.ai/install.sh | bash</code></pre>
+
+          <p>Danach Terminal neu starten und prüfen:</p>
+          <pre><code>claude --version</code></pre>
+        </div>
+
+        <div class="tabs">
+          <h3>Windows</h3>
+          <p>In PowerShell:</p>
+          <pre><code>irm https://claude.ai/install.ps1 | iex</code></pre>
+
+          <p>Danach PowerShell neu starten und prüfen:</p>
+          <pre><code>claude --version</code></pre>
+        </div>
+
+        <hr />
+
+        <h2>Schritt 3: Mit dem AI Gateway verbinden</h2>
+        <p>Setze diese Umgebungsvariablen mit deinem Token aus Schritt 1:</p>
+
+        <div class="tabs">
+          <h3>Mac / Linux</h3>
+          <p>Füge zu deiner <code>~/.zshrc</code> oder <code>~/.bashrc</code> hinzu:</p>
+          <pre><code># NMT AI Gateway Konfiguration
+export ANTHROPIC_AUTH_TOKEN='dein-token-hier'
+export ANTHROPIC_BASE_URL='https://litellm.dev.tech.as-nmt.de/'
+export ANTHROPIC_MODEL='eu.anthropic.claude-sonnet-4-5-20250929-v1:0'</code></pre>
+          <p>Dann aktivieren:</p>
+          <pre><code>source ~/.zshrc</code></pre>
+        </div>
+
+        <div class="tabs">
+          <h3>Windows</h3>
+          <p>In PowerShell:</p>
+          <pre><code>$env:ANTHROPIC_AUTH_TOKEN = 'dein-token-hier'
+$env:ANTHROPIC_BASE_URL = 'https://litellm.dev.tech.as-nmt.de/'
+$env:ANTHROPIC_MODEL = 'eu.anthropic.claude-sonnet-4-5-20250929-v1:0'</code></pre>
+          <p>Für permanente Einrichtung: Suche "Umgebungsvariablen" in Windows.</p>
+        </div>
+
+        <div class="callout warning">
+          <strong>Token geheim halten!</strong> Niemals in Git oder öffentlich teilen.
+        </div>
+
+        <hr />
+
+        <h2>Schritt 4: Testen</h2>
+        <ol>
+          <li>Navigiere zu einem Ordner: <code>cd pfad/zu/projekt</code></li>
+          <li>Starte Claude Code: <code>claude</code></li>
+          <li>Stelle eine Test-Frage: <em>"Was siehst du in diesem Ordner?"</em></li>
+          <li>Beenden: <code>/exit</code> oder <code>Ctrl+C</code></li>
+        </ol>
+
+        <hr />
+
+        <h2>Checkliste</h2>
+        <ul class="checklist">
+          <li>NMT AI Gateway Zugang - Du hast einen Auth Token</li>
+          <li><code>claude --version</code> zeigt eine Versionsnummer</li>
+          <li>Umgebungsvariablen sind gesetzt</li>
+          <li>Test-Frage wurde beantwortet</li>
+        </ul>
+
+        <hr />
+
+        <h2>Probleme?</h2>
+        <p>
+          Melde dich bei: <a href="mailto:oladayo.fagbemi@axelspringer.com">oladayo.fagbemi@axelspringer.com</a>
+        </p>
+        <p>Wir kriegen das gemeinsam hin!</p>
+      </section>
+    </div>
+  </article>
+</Base>
+
+<style is:global>
+  .setup-page {
+    padding: 4rem 1.5rem;
+  }
+
+  .setup-page .container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .page-header {
+    margin-bottom: 3rem;
+  }
+
+  .page-header h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #e5e5e5;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    font-size: 1.125rem;
+    color: #878787;
+    margin: 0;
+  }
+
+  .content h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #e5e5e5;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .content h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #a3a3a3;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .content p {
+    color: #a3a3a3;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+
+  .content ul, .content ol {
+    color: #a3a3a3;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .content li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+  }
+
+  .content a {
+    color: #60a5fa;
+  }
+
+  .content a:hover {
+    color: #93c5fd;
+  }
+
+  .content hr {
+    border: none;
+    height: 1px;
+    background: #2a2a2a;
+    margin: 2.5rem 0;
+  }
+
+  .content pre {
+    background: #1a1a1a;
+    padding: 1rem;
+    border-radius: 6px;
+    overflow-x: auto;
+    margin: 1rem 0;
+  }
+
+  .content code {
+    font-family: 'Geist Mono', monospace;
+    font-size: 0.875rem;
+  }
+
+  .content pre code {
+    background: none;
+    padding: 0;
+  }
+
+  .content p code {
+    background: #1a1a1a;
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+  }
+
+  .tabs {
+    background: #141414;
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    padding: 1.25rem;
+    margin: 1rem 0;
+  }
+
+  .tabs h3 {
+    margin-top: 0;
+    color: #e5e5e5;
+  }
+
+  .callout {
+    padding: 1rem 1.25rem;
+    border-radius: 6px;
+    margin: 1.5rem 0;
+  }
+
+  .callout.warning {
+    background: rgba(234, 179, 8, 0.1);
+    border-left: 3px solid #eab308;
+  }
+
+  .callout strong {
+    color: #e5e5e5;
+  }
+
+  .checklist {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .checklist li {
+    padding-left: 1.75rem;
+    position: relative;
+  }
+
+  .checklist li::before {
+    content: "☐";
+    position: absolute;
+    left: 0;
+    color: #60a5fa;
+  }
+</style>

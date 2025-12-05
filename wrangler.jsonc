@@ -1,7 +1,15 @@
 {
   "name": "hola-ai",
+  "main": "src/worker/index.ts",
   "compatibility_date": "2025-12-03",
   "assets": {
-    "directory": "./dist"
-  }
+    "directory": "./dist",
+    "binding": "ASSETS"
+  },
+  "kv_namespaces": [
+    {
+      "binding": "POLLS",
+      "id": "7f9406e989564643a14b33b638864fbb"
+    }
+  ]
 }

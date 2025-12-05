@@ -1,0 +1,60 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import PromptSearch from '../../components/PromptSearch.svelte';
+
+const prompts = await getCollection('prompts');
+
+// Group by category
+const categories = ['coding', 'review', 'debug', 'writing', 'analysis', 'other'];
+const categoryLabels: Record<string, string> = {
+  coding: 'Coding',
+  review: 'Review',
+  debug: 'Debugging',
+  writing: 'Writing',
+  analysis: 'Analyse',
+  other: 'Sonstiges',
+};
+
+const promptsData = prompts.map((p) => ({
+  id: p.id,
+  title: p.data.title,
+  description: p.data.description,
+  category: p.data.category,
+  tags: p.data.tags,
+  prompt: p.data.prompt,
+}));
+---
+
+<Base title="Prompt Library" description="Bewährte Prompts zum Kopieren und Anpassen.">
+  <section class="page">
+    <div class="container">
+      <header class="page-header">
+        <h1>Prompt Library</h1>
+        <p>Bewährte Prompts zum Kopieren und Anpassen. Für Coding, Reviews, Debugging und mehr.</p>
+      </header>
+
+      <PromptSearch
+        client:load
+        prompts={promptsData}
+        categories={categories}
+        categoryLabels={categoryLabels}
+      />
+    </div>
+  </section>
+</Base>
+
+<style>
+  .page {
+    padding: var(--space-16) 0;
+  }
+
+  .page-header {
+    max-width: 600px;
+    margin-bottom: var(--space-8);
+  }
+
+  .page-header h1 {
+    margin-bottom: var(--space-4);
+  }
+</style>

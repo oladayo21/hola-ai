@@ -7,14 +7,27 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "slides": "slidev slidev/session-1.md --open",
+    "slides:build": "slidev build slidev/session-1.md --base /slides/session-1/ --out ../dist/slides/session-1",
+    "slides:export": "slidev export slidev/session-1.md",
+    "dev:worker": "wrangler dev --local",
+    "deploy": "pnpm build && pnpm slides:build && wrangler deploy"
   },
   "dependencies": {
-    "@astrojs/starlight": "^0.37.0",
+    "@astrojs/mdx": "^4.3.12",
+    "@astrojs/svelte": "^7.0.9",
+    "@fontsource-variable/geist": "^5.2.8",
+    "@fontsource-variable/geist-mono": "^5.2.7",
     "astro": "^5.6.1",
+    "hono": "^4.10.7",
     "marked": "^17.0.1",
-    "reveal.js": "^5.2.1",
     "sharp": "^0.34.2",
-    "starlight-theme-next": "^0.3.3"
+    "svelte": "^5.33.0"
+  },
+  "devDependencies": {
+    "@slidev/cli": "^52.10.1",
+    "@slidev/theme-default": "^0.25.0",
+    "wrangler": "^4.52.1"
   }
 }

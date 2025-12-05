@@ -1,0 +1,192 @@
+---
+// Presenter Dashboard - Command Center
+---
+
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Presenter Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style is:inline>
+    :root {
+      --bg: #09090b;
+      --card: #18181b;
+      --card-hover: #27272a;
+      --border: #27272a;
+      --text: #fafafa;
+      --text-dim: #a1a1aa;
+      --text-muted: #71717a;
+      --accent: #10b981;
+      --warn: #fbbf24;
+      --danger: #f87171;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    .wrap { max-width: 1600px; margin: 0 auto; padding: 2rem; }
+    .head { display: flex; justify-content: space-between; align-items: center; padding-bottom: 1.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--border); }
+    .logo { display: flex; align-items: center; gap: 0.75rem; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; font-weight: 600; color: var(--text-dim); letter-spacing: 0.05em; text-transform: uppercase; }
+    .logo b { color: var(--text); }
+    .dot { width: 8px; height: 8px; background: var(--accent); border-radius: 2px; box-shadow: 0 0 12px rgba(16,185,129,0.5); }
+    .live { display: flex; align-items: center; gap: 0.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; font-weight: 500; color: var(--accent); letter-spacing: 0.05em; text-transform: uppercase; }
+    .live-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    @media(max-width:1100px) { .grid { grid-template-columns: 1fr; } }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    .card-head { display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.25rem; border-bottom: 1px solid var(--border); }
+    .card-title { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; font-weight: 600; color: var(--text-muted); letter-spacing: 0.12em; text-transform: uppercase; }
+    .badge { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 700; padding: 0.25rem 0.6rem; background: rgba(16,185,129,0.12); color: var(--accent); border-radius: 6px; }
+    .card-body { padding: 1.25rem; max-height: 72vh; overflow-y: auto; }
+    .poll-id { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; font-weight: 600; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px dashed var(--border); }
+    .opt { padding: 1rem 1.25rem; background: var(--card-hover); border-radius: 8px; margin-bottom: 0.625rem; }
+    .opt:hover { background: #3f3f46; }
+    .opt-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.5rem; }
+    .opt-label { font-size: 0.9rem; font-weight: 500; }
+    .opt-val { font-family: 'JetBrains Mono', monospace; font-size: 1.2rem; font-weight: 700; color: var(--accent); }
+    .opt-pct { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-muted); margin-left: 0.25rem; }
+    .bar { height: 4px; background: #18181b; border-radius: 2px; overflow: hidden; margin-bottom: 0.5rem; }
+    .bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), #34d399); border-radius: 2px; transition: width 0.4s ease; }
+    .voters { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    .voter { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; font-weight: 500; padding: 0.2rem 0.5rem; background: var(--bg); color: var(--text-dim); border-radius: 4px; }
+    .total { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--text-muted); padding-top: 1rem; margin-top: 0.5rem; border-top: 1px solid var(--border); text-align: right; }
+    .total b { color: var(--text-dim); }
+    .q { padding: 1rem 1.25rem 1rem 1.5rem; background: var(--card-hover); border-radius: 8px; margin-bottom: 0.625rem; border-left: 3px solid var(--accent); }
+    .q:hover { background: #3f3f46; }
+    .q.done { opacity: 0.35; border-left-color: var(--text-muted); }
+    .q-text { font-size: 0.95rem; font-weight: 500; line-height: 1.5; margin-bottom: 0.5rem; }
+    .q-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; }
+    .q-author { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--text-dim); }
+    .q-author span { color: var(--text-muted); }
+    .q-votes { display: flex; align-items: center; gap: 0.25rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 600; color: var(--warn); }
+    .q-votes svg { width: 12px; height: 12px; }
+    .actions { display: flex; gap: 0.5rem; }
+    .btn { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; padding: 0.5rem 0.875rem; border: none; border-radius: 6px; cursor: pointer; transition: all 0.15s; }
+    .btn-ghost { background: transparent; color: var(--text-muted); border: 1px solid var(--border); }
+    .btn-ghost:hover { background: var(--card-hover); color: var(--text); }
+    .btn-ok { background: rgba(16,185,129,0.12); color: var(--accent); }
+    .btn-ok:hover { background: rgba(16,185,129,0.2); }
+    .btn-no { background: rgba(248,113,113,0.1); color: var(--danger); }
+    .btn-no:hover { background: rgba(248,113,113,0.2); }
+    .empty { text-align: center; padding: 3rem 2rem; color: var(--text-muted); }
+    .card-body::-webkit-scrollbar { width: 4px; }
+    .card-body::-webkit-scrollbar-track { background: transparent; }
+    .card-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="head">
+      <div class="logo"><div class="dot"></div><b>Hola</b> Presenter</div>
+      <div class="live"><span class="live-dot"></span>Live</div>
+    </header>
+    <div class="grid">
+      <div class="card">
+        <div class="card-head">
+          <span class="card-title">Poll Results</span>
+          <button class="btn btn-ghost" onclick="resetPoll('session1-setup')">Reset</button>
+        </div>
+        <div class="card-body" id="polls">
+          <div class="empty">Loading...</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <span class="card-title">Questions</span>
+          <span class="badge" id="qcount">0</span>
+        </div>
+        <div class="card-body" id="qs">
+          <div class="empty">Loading...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script is:inline>
+    const API = location.hostname === 'localhost' ? 'http://localhost:8787' : '';
+    const POLLS = ['session1-setup'];
+    const SID = 'session1';
+
+    async function loadPolls() {
+      const el = document.getElementById('polls');
+      let h = '';
+      for (const pid of POLLS) {
+        try {
+          const r = await fetch(`${API}/api/poll/${pid}`);
+          const d = await r.json();
+          h += renderPoll(pid, d);
+        } catch(e) { console.error(e); }
+      }
+      el.innerHTML = h || '<div class="empty">No polls</div>';
+    }
+
+    function renderPoll(pid, d) {
+      const opts = d.options || {};
+      const vts = d.voters || {};
+      const tot = Object.values(opts).reduce((a,b) => a+b, 0);
+      const byOpt = {};
+      for (const [vid, v] of Object.entries(vts)) {
+        const o = typeof v === 'string' ? v : v.option;
+        const n = typeof v === 'string' ? 'Anon' : v.name;
+        if (!byOpt[o]) byOpt[o] = [];
+        byOpt[o].push(n);
+      }
+      const sorted = Object.entries(opts).sort((a,b) => b[1] - a[1]);
+      let oh = '';
+      for (const [o, c] of sorted) {
+        const p = tot > 0 ? Math.round((c/tot)*100) : 0;
+        const ns = byOpt[o] || [];
+        oh += `<div class="opt">
+          <div class="opt-row"><span class="opt-label">${o}</span><span><span class="opt-val">${c}</span><span class="opt-pct">${p}%</span></span></div>
+          <div class="bar"><div class="bar-fill" style="width:${p}%"></div></div>
+          ${ns.length ? `<div class="voters">${ns.map(n=>`<span class="voter">${n}</span>`).join('')}</div>` : ''}
+        </div>`;
+      }
+      return `<div class="poll-id">${pid}</div>${oh}<div class="total"><b>${tot}</b> votes</div>`;
+    }
+
+    async function loadQs() {
+      const el = document.getElementById('qs');
+      const badge = document.getElementById('qcount');
+      try {
+        const r = await fetch(`${API}/api/questions/${SID}`);
+        const d = await r.json();
+        const qs = d.questions || [];
+        badge.textContent = qs.filter(q => !q.answered).length;
+        if (!qs.length) { el.innerHTML = '<div class="empty">No questions yet</div>'; return; }
+        qs.sort((a,b) => { if (a.answered !== b.answered) return a.answered ? 1 : -1; return b.upvotes - a.upvotes; });
+        el.innerHTML = qs.map(q => `
+          <div class="q ${q.answered ? 'done' : ''}">
+            <div class="q-text">${esc(q.text)}</div>
+            <div class="q-meta">
+              <span class="q-author">${esc(q.authorName)} <span>· ${time(q.timestamp)}</span></span>
+              <span class="q-votes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 19V5M5 12l7-7 7 7"/></svg>${q.upvotes}</span>
+            </div>
+            <div class="actions">
+              <button class="btn btn-ok" onclick="ans('${q.id}')">${q.answered ? 'Reopen' : 'Done'}</button>
+              <button class="btn btn-no" onclick="del('${q.id}')">Remove</button>
+            </div>
+          </div>
+        `).join('');
+      } catch(e) { console.error(e); el.innerHTML = '<div class="empty">Error</div>'; }
+    }
+
+    window.resetPoll = async (id) => { if (!confirm('Reset?')) return; await fetch(`${API}/api/poll/${id}/reset`, {method:'POST'}); loadPolls(); };
+    window.ans = async (id) => { await fetch(`${API}/api/questions/${SID}/${id}/answer`, {method:'POST'}); loadQs(); };
+    window.del = async (id) => { if (!confirm('Remove?')) return; await fetch(`${API}/api/questions/${SID}/${id}`, {method:'DELETE'}); loadQs(); };
+    function esc(t) { const d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
+    function time(ts) { return new Date(ts).toLocaleTimeString('de-DE', {hour:'2-digit',minute:'2-digit'}); }
+
+    loadPolls(); loadQs();
+    setInterval(loadPolls, 3000);
+    setInterval(loadQs, 3000);
+  </script>
+</body>
+</html>
