@@ -3,7 +3,7 @@ theme: default
 title: "Hola AI - Session 1"
 info: |
   ## Hola AI Workshop
-  Coding mit KI-Unterstützung
+  Arbeiten mit KI-Unterstützung
 class: text-center
 highlighter: shiki
 drawings:
@@ -14,7 +14,7 @@ mdc: true
 
 # Hola AI
 
-## Coding mit KI-Unterstützung
+## Arbeiten mit KI-Unterstützung
 
 Session 1 | 05.12.2025
 
@@ -568,7 +568,7 @@ layout: center
 
 # Fragen?
 
-<LiveQuestions sessionId="session1" />
+*Offene Runde*
 
 ---
 layout: center
