@@ -189,9 +189,9 @@ Diese Modelle treiben Agentic AI an:
 
 | Anbieter | Flagship |
 |----------|----------|
-| **OpenAI** | GPT-4o, o3 |
+| **OpenAI** | GPT-5.1 Codex |
 | **Google** | Gemini 2.5 Pro |
-| **Anthropic** | Claude Sonnet 4.5 |
+| **Anthropic** | Claude Opus 4.5 |
 
 </div>
 
