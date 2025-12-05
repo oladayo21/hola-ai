@@ -177,6 +177,47 @@ Die goldene Mitte zwischen Kontrolle und Autonomie:
 
 ---
 
+# Die Top LLMs
+
+Diese Modelle treiben Agentic AI an:
+
+<div class="grid grid-cols-2 gap-6 mt-6 text-sm">
+
+<div>
+
+### Proprietär
+
+| Anbieter | Flagship |
+|----------|----------|
+| **OpenAI** | GPT-4o, o3 |
+| **Google** | Gemini 2.5 Pro |
+| **Anthropic** | Claude Sonnet 4.5 |
+
+</div>
+
+<div>
+
+### Open Source
+
+| Modell | Von |
+|--------|-----|
+| **Llama 3.2** | Meta |
+| **DeepSeek V3** | DeepSeek |
+| **Mixtral** | Mistral AI |
+| **Qwen 2.5** | Alibaba |
+
+</div>
+
+</div>
+
+<div class="mt-6 text-center text-base opacity-80">
+
+Wir nutzen **Claude Sonnet 4.5** via NMT AI Gateway.
+
+</div>
+
+---
+
 # Claude Code
 
 Anthropic's Agentic Coding Tool - läuft direkt im Terminal.
