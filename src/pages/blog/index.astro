@@ -3,9 +3,9 @@ import Base from '../../layouts/Base.astro';
 import { getCollection } from 'astro:content';
 
 const posts = await getCollection('blog', ({ data }) => !data.draft);
-const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
 // Manual pages (Astro pages not in content collection)
+// Order: 1=KI-Tools, 2=Claude Setup, 3=OpenCode Setup
 const manualPages = [
   {
     id: 'ki-tools-uebersicht',
@@ -13,7 +13,9 @@ const manualPages = [
       title: 'KI-Tools im Überblick',
       description: 'Welches Tool für welchen Zweck? Eine praktische Übersicht.',
       date: new Date('2025-12-05'),
-      tags: ['tools', 'übersicht']
+      tags: ['tools', 'übersicht'],
+      order: 1,
+      icon: 'tools'
     }
   },
   {
@@ -22,15 +24,32 @@ const manualPages = [
       title: 'Claude Code Setup',
       description: 'Dein Einstieg in AI-gestütztes Coding - Schritt für Schritt Anleitung.',
       date: new Date('2025-12-03'),
-      tags: ['setup', 'anleitung', 'claude-code']
+      tags: ['setup', 'anleitung', 'claude-code'],
+      order: 2,
+      logo: 'https://cdn.brandfetch.io/idW5s392j1/w/338/h/338/theme/dark/icon.png'
+    }
+  },
+  {
+    id: 'opencode-setup',
+    data: {
+      title: 'OpenCode Setup',
+      description: 'Open Source Agentic CLI mit flexibler Model-Auswahl - Schritt für Schritt Anleitung.',
+      date: new Date('2025-12-11'),
+      tags: ['setup', 'anleitung', 'opencode', 'open-source'],
+      order: 3,
+      logo: 'https://cdn.brandfetch.io/id8ixWaeze/w/400/h/400/theme/dark/icon.png'
     }
   }
 ];
 
-// Combine and sort all posts
-const allPosts = [...sortedPosts, ...manualPages].sort((a, b) =>
-  b.data.date.getTime() - a.data.date.getTime()
-);
+// Filter out willkommen from content collection posts
+const filteredPosts = posts.filter(post => post.id !== 'willkommen');
+
+// Combine and sort by order (manual pages have explicit order, others go to end)
+const allPosts = [...manualPages, ...filteredPosts.map(p => ({
+  ...p,
+  data: { ...p.data, order: 99 }
+}))].sort((a, b) => a.data.order - b.data.order);
 ---
 
 <Base title="Blog" description="Artikel und Tutorials zu KI-Tools im Entwickleralltag.">
@@ -43,29 +62,40 @@ const allPosts = [...sortedPosts, ...manualPages].sort((a, b) =>
 
       <div class="post-list">
         {allPosts.map((post) => (
-          <article class="post-card">
-            <time datetime={post.data.date.toISOString()}>
-              {post.data.date.toLocaleDateString('de-DE', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-              })}
-            </time>
-
-            <h2>
-              <a href={`/blog/${post.id}`}>{post.data.title}</a>
-            </h2>
-
-            <p>{post.data.description}</p>
-
-            {post.data.tags.length > 0 && (
-              <div class="tags">
-                {post.data.tags.map((tag) => (
-                  <span class="tag">{tag}</span>
-                ))}
+          <a href={`/blog/${post.id}`} class:list={["post-card", { "has-icon": post.data.logo || post.data.icon }]}>
+            {post.data.logo && (
+              <div class="post-icon">
+                <img src={post.data.logo} alt="" width="48" height="48" />
               </div>
             )}
-          </article>
+            {post.data.icon === 'tools' && (
+              <div class="post-icon post-icon--svg">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                </svg>
+              </div>
+            )}
+            <div class="post-content">
+              <div class="post-meta">
+                <time datetime={post.data.date.toISOString()}>
+                  {post.data.date.toLocaleDateString('de-DE', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                  })}
+                </time>
+                {post.data.tags.length > 0 && (
+                  <div class="tags">
+                    {post.data.tags.slice(0, 2).map((tag) => (
+                      <span class="tag">{tag}</span>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <h2>{post.data.title}</h2>
+              <p>{post.data.description}</p>
+            </div>
+          </a>
         ))}
       </div>
 
@@ -91,33 +121,94 @@ const allPosts = [...sortedPosts, ...manualPages].sort((a, b) =>
   }
 
   .post-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: var(--space-6);
+  }
+
+  .post-card {
     display: flex;
     flex-direction: column;
-    gap: var(--space-10);
-    max-width: var(--max-width-prose);
+    padding: var(--space-6);
+    background: var(--color-bg-subtle);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .post-card:hover {
+    background: var(--color-bg-muted);
+    border-color: var(--color-border);
+    transform: translateY(-2px);
+  }
+
+  .post-card.has-icon {
+    padding-top: var(--space-5);
+  }
+
+  .post-icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: var(--space-4);
+  }
+
+  .post-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 10px;
+  }
+
+  .post-icon--svg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-bg-elevated);
+    border-radius: 10px;
+    color: var(--color-accent);
+  }
+
+  .post-icon--svg svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .post-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-3);
   }
 
   .post-card time {
-    font-size: var(--text-sm);
+    font-size: var(--text-xs);
     color: var(--color-text-muted);
   }
 
   .post-card h2 {
-    font-size: var(--text-2xl);
-    margin: var(--space-2) 0 var(--space-3);
-  }
-
-  .post-card h2 a {
+    font-size: var(--text-lg);
+    font-weight: 600;
     color: var(--color-text);
+    margin-bottom: var(--space-2);
+    line-height: 1.3;
   }
 
-  .post-card h2 a:hover {
+  .post-card:hover h2 {
     color: var(--color-accent);
   }
 
-  .post-card > p {
-    font-size: var(--text-base);
-    margin-bottom: var(--space-3);
+  .post-content > p {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: 1.5;
+    flex: 1;
   }
 
   .tags {
@@ -127,9 +218,9 @@ const allPosts = [...sortedPosts, ...manualPages].sort((a, b) =>
   }
 
   .tag {
-    font-size: var(--text-xs);
-    padding: var(--space-1) var(--space-2);
-    background: var(--color-bg-subtle);
+    font-size: 10px;
+    padding: 2px 8px;
+    background: var(--color-bg-elevated);
     border-radius: var(--radius-full);
     color: var(--color-text-muted);
   }

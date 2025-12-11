@@ -7,35 +7,36 @@ import Aside from '../../components/Aside.astro';
 import Code from '../../components/Code.astro';
 ---
 
-<Base title="Claude Code Setup" description="Dein Einstieg in AI-gestütztes Coding">
+<Base title="OpenCode Setup" description="Open Source Agentic CLI mit flexibler Model-Auswahl">
   <article class="setup-page">
     <div class="setup-container">
       <header class="page-header">
         <a href="/blog" class="back-link">&larr; Alle Artikel</a>
-        <h1>Claude Code Setup</h1>
-        <p class="subtitle">Dein Einstieg in AI-gestütztes Coding</p>
+        <h1>OpenCode Setup</h1>
+        <p class="subtitle">Open Source Agentic CLI mit flexibler Model-Auswahl</p>
       </header>
 
       <section class="content">
-        <h2>Was ist Claude Code?</h2>
+        <h2>Was ist OpenCode?</h2>
         <p>
-          <strong>Claude Code</strong> ist ein Kommandozeilen-Tool (CLI), das Claude direkt in dein Terminal bringt.
-          Statt Code zwischen Browser und Editor zu kopieren, kann Claude Code:
+          <strong>OpenCode</strong> ist ein <strong>Open Source</strong> Agentic CLI Tool, das AI direkt in dein Terminal bringt.
+          Im Gegensatz zu Claude Code, das nur mit Claude-Modellen funktioniert, kann OpenCode mit <strong>verschiedenen AI-Modellen</strong> arbeiten:
         </p>
         <ul>
-          <li><strong>Direkt auf deine Dateien zugreifen</strong> - Es liest und versteht deinen Code</li>
-          <li><strong>Änderungen vorschlagen und umsetzen</strong> - Mit deiner Erlaubnis</li>
-          <li><strong>Komplexe Aufgaben planen</strong> - Im "Plan Mode" analysiert es erst</li>
+          <li><strong>Multi-Model Support</strong> - Claude, GPT, Gemini, lokale Modelle und mehr</li>
+          <li><strong>Flexible Provider</strong> - Konfiguriere mehrere AI-Backends gleichzeitig</li>
+          <li><strong>Open Source</strong> - Transparenter Code, Community-getrieben</li>
+          <li><strong>Direkte Dateizugriffe</strong> - Liest und versteht deinen Code</li>
         </ul>
 
-        <Aside type="tip" title="Warum CLI statt Chat?">
-          <p>Im Browser-Chat musst du Code kopieren, einfügen, erklären wo er hingehört. Claude Code sieht dein Projekt direkt - wie ein Kollege, der neben dir sitzt.</p>
+        <Aside type="tip" title="Warum OpenCode?">
+          <p>OpenCode bietet die gleichen Vorteile wie Claude Code (Terminal-Integration, Dateizugriff, Agentic Workflows), aber mit der Freiheit, verschiedene AI-Modelle zu nutzen. Perfekt, wenn du flexibel bleiben willst.</p>
         </Aside>
 
         <hr />
 
         <h2>Schritt 1: NMT AI Gateway Zugang</h2>
-        <p>Wir nutzen das <strong>firmeninterne AI Gateway</strong> - kein eigenes Claude.ai Abo nötig.</p>
+        <p>Wir nutzen das <strong>firmeninterne AI Gateway</strong> - kein eigenes AI-Abo nötig.</p>
 
         <Steps>
           <ol>
@@ -44,12 +45,12 @@ import Code from '../../components/Code.astro';
               <p>Geh auf: <a href="https://tools.ai.tech.as-nmt.de/tools?tool=NMT%2520AI%2520Gateway&tab=getAccess" target="_blank" rel="noopener">NMT AI Gateway Registration</a></p>
             </li>
             <li>
-              <strong>Für Claude registrieren</strong>
-              <p>Folge den Anweisungen. Du bekommst einen <strong>Auth Token</strong> - eine lange Zeichenkette wie ein Passwort.</p>
+              <strong>Für AI Gateway registrieren</strong>
+              <p>Folge den Anweisungen. Du bekommst einen <strong>API Key</strong> - eine lange Zeichenkette wie ein Passwort.</p>
             </li>
             <li>
-              <strong>Token sicher aufbewahren</strong>
-              <p>Kopiere den Token und speichere ihn sicher (z.B. Passwort-Manager). Du brauchst ihn in Schritt 3.</p>
+              <strong>API Key sicher aufbewahren</strong>
+              <p>Kopiere den Key und speichere ihn sicher (z.B. Passwort-Manager). Du brauchst ihn in Schritt 3.</p>
             </li>
           </ol>
         </Steps>
@@ -60,59 +61,59 @@ import Code from '../../components/Code.astro';
 
         <hr />
 
-        <h2>Schritt 2: Claude Code installieren</h2>
+        <h2>Schritt 2: OpenCode installieren</h2>
+        <p>Die Installationsanleitung findest du auf der offiziellen OpenCode-Seite:</p>
+        <p>
+          <a href="https://opencode.ai" target="_blank" rel="noopener" class="install-link">
+            opencode.ai &rarr;
+          </a>
+        </p>
 
         <Tabs items={["Mac / Linux", "Windows"]}>
           <TabItem label="Mac / Linux" active>
-            <p><strong>Option A: Homebrew</strong> (empfohlen)</p>
-            <Code code="brew install --cask claude-code" />
+            <p><strong>Option A: npm</strong></p>
+            <Code code="npm install -g opencode" />
 
-            <p><strong>Option B: Installer-Script</strong></p>
-            <Code code="curl -fsSL https://claude.ai/install.sh | bash" />
+            <p><strong>Option B: curl</strong></p>
+            <Code code="curl -fsSL https://opencode.ai/install.sh | bash" />
 
             <p>Danach Terminal neu starten und prüfen:</p>
-            <Code code="claude --version" />
+            <Code code="opencode --version" />
           </TabItem>
 
           <TabItem label="Windows">
             <p>In PowerShell:</p>
-            <Code code="irm https://claude.ai/install.ps1 | iex" lang="powershell" />
+            <Code code="npm install -g opencode" lang="powershell" />
 
             <p>Danach PowerShell neu starten und prüfen:</p>
-            <Code code="claude --version" lang="powershell" />
+            <Code code="opencode --version" lang="powershell" />
           </TabItem>
         </Tabs>
 
         <hr />
 
-        <h2>Schritt 3: Mit dem AI Gateway verbinden</h2>
-        <p>Setze diese Umgebungsvariablen mit deinem Token aus Schritt 1:</p>
+        <h2>Schritt 3: API Key als Umgebungsvariable setzen</h2>
+        <p>Der API Key wird als Umgebungsvariable gespeichert, damit OpenCode ihn nutzen kann:</p>
 
         <Tabs items={["Mac / Linux (zsh)", "Mac / Linux (bash)", "Windows"]}>
           <TabItem label="Mac / Linux (zsh)" active>
-            <p>Führe diesen Befehl aus (ersetze <code>dein-token-hier</code> mit deinem Token):</p>
+            <p>Führe diesen Befehl aus (ersetze <code>dein-api-key-hier</code> mit deinem Key):</p>
             <Code
-              code={`echo 'export ANTHROPIC_AUTH_TOKEN="dein-token-hier"
-export ANTHROPIC_BASE_URL="https://litellm.dev.tech.as-nmt.de/"
-export ANTHROPIC_MODEL="eu.anthropic.claude-sonnet-4-5-20250929-v1:0"' >> ~/.zshrc && source ~/.zshrc`}
+              code={`echo 'export NMT_LITELLM_KEY="dein-api-key-hier"' >> ~/.zshrc && source ~/.zshrc`}
             />
           </TabItem>
 
           <TabItem label="Mac / Linux (bash)">
-            <p>Führe diesen Befehl aus (ersetze <code>dein-token-hier</code> mit deinem Token):</p>
+            <p>Führe diesen Befehl aus (ersetze <code>dein-api-key-hier</code> mit deinem Key):</p>
             <Code
-              code={`echo 'export ANTHROPIC_AUTH_TOKEN="dein-token-hier"
-export ANTHROPIC_BASE_URL="https://litellm.dev.tech.as-nmt.de/"
-export ANTHROPIC_MODEL="eu.anthropic.claude-sonnet-4-5-20250929-v1:0"' >> ~/.bashrc && source ~/.bashrc`}
+              code={`echo 'export NMT_LITELLM_KEY="dein-api-key-hier"' >> ~/.bashrc && source ~/.bashrc`}
             />
           </TabItem>
 
           <TabItem label="Windows">
             <p>In PowerShell:</p>
             <Code
-              code={`$env:ANTHROPIC_AUTH_TOKEN = 'dein-token-hier'
-$env:ANTHROPIC_BASE_URL = 'https://litellm.dev.tech.as-nmt.de/'
-$env:ANTHROPIC_MODEL = 'eu.anthropic.claude-sonnet-4-5-20250929-v1:0'`}
+              code={`$env:NMT_LITELLM_KEY = 'dein-api-key-hier'`}
               lang="powershell"
             />
             <p>Für permanente Einrichtung: Suche "Umgebungsvariablen" in Windows.</p>
@@ -120,12 +121,49 @@ $env:ANTHROPIC_MODEL = 'eu.anthropic.claude-sonnet-4-5-20250929-v1:0'`}
         </Tabs>
 
         <Aside type="caution">
-          <p><strong>Token geheim halten!</strong> Niemals in Git oder öffentlich teilen.</p>
+          <p><strong>API Key geheim halten!</strong> Niemals in Git oder öffentlich teilen.</p>
         </Aside>
 
         <hr />
 
-        <h2>Schritt 4: Testen</h2>
+        <h2>Schritt 4: OpenCode konfigurieren</h2>
+        <p>Erstelle eine <code>opencode.json</code> Datei im Root deines Projekts oder in deinem Home-Verzeichnis:</p>
+
+        <Code
+          code={`{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "nmt": {
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "https://litellm.dev.tech.as-nmt.de/v1",
+        "apiKey": "{env:NMT_LITELLM_KEY}"
+      },
+      "models": {
+        "eu.anthropic.claude-sonnet-4-5-20250929-v1:0": {
+          "name": "NMT Claude Sonnet 4.5"
+        }
+      }
+    }
+  }
+}`}
+          lang="json"
+          title="opencode.json"
+        />
+
+        <Aside type="note" title="Config-Erklärung">
+          <ul>
+            <li><code>provider.nmt</code> - Definiert das NMT Gateway als Provider</li>
+            <li><code>npm</code> - Nutzt das Vercel AI SDK für OpenAI-kompatible APIs</li>
+            <li><code>baseURL</code> - Die NMT Gateway URL</li>
+            <li><code>{`{env:NMT_LITELLM_KEY}`}</code> - Liest den API Key aus der Umgebungsvariable</li>
+            <li><code>models</code> - Verfügbare Modelle mit Anzeigenamen</li>
+          </ul>
+        </Aside>
+
+        <hr />
+
+        <h2>Schritt 5: Testen</h2>
 
         <Steps>
           <ol>
@@ -134,8 +172,8 @@ $env:ANTHROPIC_MODEL = 'eu.anthropic.claude-sonnet-4-5-20250929-v1:0'`}
               <Code code="cd pfad/zu/projekt" />
             </li>
             <li>
-              <strong>Starte Claude Code</strong>
-              <Code code="claude" />
+              <strong>Starte OpenCode</strong>
+              <Code code="opencode" />
             </li>
             <li>
               <strong>Stelle eine Test-Frage</strong>
@@ -152,9 +190,10 @@ $env:ANTHROPIC_MODEL = 'eu.anthropic.claude-sonnet-4-5-20250929-v1:0'`}
 
         <h2>Checkliste</h2>
         <ul class="checklist">
-          <li>NMT AI Gateway Zugang - Du hast einen Auth Token</li>
-          <li><code>claude --version</code> zeigt eine Versionsnummer</li>
-          <li>Umgebungsvariablen sind gesetzt</li>
+          <li>NMT AI Gateway Zugang - Du hast einen API Key</li>
+          <li><code>opencode --version</code> zeigt eine Versionsnummer</li>
+          <li><code>NMT_LITELLM_KEY</code> ist als Umgebungsvariable gesetzt</li>
+          <li><code>opencode.json</code> ist erstellt und konfiguriert</li>
           <li>Test-Frage wurde beantwortet</li>
         </ul>
 
@@ -245,6 +284,21 @@ $env:ANTHROPIC_MODEL = 'eu.anthropic.claude-sonnet-4-5-20250929-v1:0'`}
 
   .setup-page .content a:hover {
     color: #93c5fd;
+  }
+
+  .setup-page .install-link {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: #1a1a2e;
+    border: 1px solid #2a2a4a;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+
+  .setup-page .install-link:hover {
+    background: #2a2a4a;
+    border-color: #60a5fa;
   }
 
   .setup-page .content hr {
