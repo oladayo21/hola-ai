@@ -43,8 +43,8 @@ const blogCollection = defineCollection({
 });
 
 // Prompt library
-const promptsCollection = defineCollection({
-	loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/prompts' }),
+const libraryCollection = defineCollection({
+	loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/library' }),
 	schema: z.object({
 		title: z.string(),
 		description: z.string(),
@@ -58,5 +58,5 @@ export const collections = {
 	workshops: workshopsCollection,
 	sessions: sessionsCollection,
 	blog: blogCollection,
-	prompts: promptsCollection,
+	library: libraryCollection,
 };
